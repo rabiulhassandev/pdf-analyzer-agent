@@ -20,7 +20,7 @@ class CustomerFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'phone' => fake()->phoneNumber(),
             'company' => fake()->company(),
-            'notes' => fake()->paragraph(),
+            'prompt' => 'Find the person information in the following PDF content and list them separately.',
             'is_active' => true,
         ];
     }

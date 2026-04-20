@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone')->nullable();
             $table->string('company')->nullable();
-            $table->text('notes')->nullable();
+            $table->text('prompt')->nullable();
             $table->boolean('is_active')->default(true)->index();
             $table->timestamps();
         });

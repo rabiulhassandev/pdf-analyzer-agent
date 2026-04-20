@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-#[Fillable(['name', 'email', 'phone', 'company', 'notes', 'is_active'])]
+#[Fillable(['name', 'email', 'phone', 'company', 'prompt', 'is_active'])]
 class Customer extends Model
 {
     /** @use HasFactory<CustomerFactory> */
