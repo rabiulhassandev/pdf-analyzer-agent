@@ -25,7 +25,7 @@ class AnalysisController extends Controller
     /**
      * Process PDF analysis via AJAX and return JSON response.
      */
-    public function analyzePdfByAi(Request $request): JsonResponse
+    public function analyzePdf(Request $request): JsonResponse
     {
         $validated = $request->validate([
             'pdf' => ['required', 'file', 'mimes:pdf', 'max:10240'],
@@ -34,33 +34,40 @@ class AnalysisController extends Controller
 
         $customer = Customer::findOrFail($validated['customer_id']);
 
-        $file = $request->file('pdf');
-        $filePath = $file->getRealPath();
+        try {
+            $file = $request->file('pdf');
+            $filePath = $file->getRealPath();
 
-        $cacheKey = 'pdf_analysis_' . md5($file->getClientOriginalName() . filesize($filePath));
+            $cacheKey = 'pdf_analysis_' . md5($file->getClientOriginalName() . filesize($filePath));
 
-        $analysisResult = Cache::remember($cacheKey, 12000, function () use ($filePath, $customer) {
-            $res = (new PdfAnalyzer)->prompt(
-                $customer->prompt ?? 'Analyze the following PDF and extract key information.',
-                model: 'claude-haiku-4-5-20251001',
-                attachments: [
-                    Document::fromPath($filePath),
-                ]
-            );
+            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $customer) {
+                $res = (new PdfAnalyzer)->prompt(
+                    $customer->prompt ?? 'Analyze the following PDF and extract key information.',
+                    model: 'claude-haiku-4-5-20251001',
+                    attachments: [
+                        Document::fromPath($filePath),
+                    ]
+                );
 
-            return $res->text;
-        });
+                return $res->text;
+            });
 
-        $analysis = json_decode($analysisResult, true);
+            $analysis = json_decode($analysisResult, true);
 
-        // If it still contains "value" as JSON string
-        if (isset($analysis['value'])) {
-            $analysis = json_decode($analysis['value'], true);
+            // If it still contains "value" as JSON string
+            if (isset($analysis['value'])) {
+                $analysis = json_decode($analysis['value'], true);
+            }
+
+            return response()->json([
+                'success' => true,
+                'analysis' => $analysis,
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Network issue! PDF analysis failed: ' . $e->getMessage(),
+            ], 500);
         }
-
-        return response()->json([
-            'success' => true,
-            'analysis' => $analysis,
-        ]);
     }
 }

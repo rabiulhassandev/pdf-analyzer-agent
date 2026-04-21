@@ -27,7 +27,7 @@ Route::middleware('auth')->group(function () {
 
     // PDF Analysis routes
     Route::get('/analysis', [AnalysisController::class, 'index'])->name('analysis.index');
-    Route::post('/api/analysis', [AnalysisController::class, 'analyzePdfByAi'])->name('analysis.pdf');
+    Route::post('/api/analysis', [AnalysisController::class, 'analyzePdf'])->name('analysis.pdf');
 });
 
 require __DIR__.'/auth.php';

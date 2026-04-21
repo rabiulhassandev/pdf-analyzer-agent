@@ -20,6 +20,7 @@
                 <thead class="bg-gray-50 border-b border-gray-200">
                     <tr>
                         <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Name</th>
+                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Prompt</th>
                         <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Actions</th>
                     </tr>
                 </thead>
