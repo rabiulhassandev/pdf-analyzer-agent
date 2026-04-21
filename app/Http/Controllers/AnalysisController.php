@@ -34,41 +34,33 @@ class AnalysisController extends Controller
 
         $customer = Customer::findOrFail($validated['customer_id']);
 
-        try {
-            $file = $request->file('pdf');
-            $path = $file->store('pdfs');
+        $file = $request->file('pdf');
+        $filePath = $file->getRealPath();
 
-            $fullPath = storage_path("app/{$path}");
+        $cacheKey = 'pdf_analysis_' . md5($file->getClientOriginalName() . filesize($filePath));
 
-            if (!file_exists($fullPath)) {
-                throw new \Exception("File not found: {$fullPath}");
-            }
+        $analysisResult = Cache::remember($cacheKey, 12000, function () use ($filePath, $customer) {
+            $res = (new PdfAnalyzer)->prompt(
+                $customer->prompt ?? 'Analyze the following PDF and extract key information.',
+                model: 'claude-haiku-4-5-20251001',
+                attachments: [
+                    Document::fromPath($filePath),
+                ]
+            );
 
-            $cacheKey = 'pdf_analysis_' . md5_file($fullPath);
+            return $res->text;
+        });
 
-            $analysisResult = Cache::remember($cacheKey, 120, function () use ($fullPath, $customer) {
-                $res = (new PdfAnalyzer)->prompt(
-                    $customer->prompt ?? 'Analyze the following PDF and extract key information.',
-                    model: 'claude-haiku-4-5-20251001',
-                    attachments: [
-                        Document::fromPath($fullPath),
-                    ]
-                );
+        $analysis = json_decode($analysisResult, true);
 
-                return $res->text;
-            });
-
-            return response()->json([
-                'success' => true,
-                'analysis' => $analysisResult,
-            ]);
-
-        } catch (\Exception $e) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Analysis failed. Please try again.',
-                'error' => $e->getMessage(), // optional for debugging
-            ], 500);
+        // If it still contains "value" as JSON string
+        if (isset($analysis['value'])) {
+            $analysis = json_decode($analysis['value'], true);
         }
+
+        return response()->json([
+            'success' => true,
+            'analysis' => $analysis,
+        ]);
     }
 }

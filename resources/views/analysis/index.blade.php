@@ -70,8 +70,15 @@
         <!-- Result State -->
         <div id="resultState" class="hidden">
             <div class="bg-white rounded-lg border border-gray-200 p-8">
-                <h2 class="text-2xl font-bold text-gray-900 mb-2">Analysis Result</h2>
-                <p class="text-gray-600 mb-6">Customer: <span id="resultCustomer" class="font-medium text-gray-900"></span></p>
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900">Analysis Result</h2>
+                    <button type="button" id="copyBtn" onclick="copyToClipboard()" class="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg font-medium hover:bg-gray-200 transition-colors" title="Copy to clipboard">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                        </svg>
+                        <span>Copy</span>
+                    </button>
+                </div>
 
                 <div class="prose prose-sm max-w-none">
                     <div id="analysisResult" class="whitespace-pre-wrap text-gray-700 bg-gray-50 p-6 rounded-lg"></div>
@@ -119,8 +126,7 @@
                 loadingState.classList.add('hidden');
 
                 if (data.success) {
-                    document.getElementById('resultCustomer').textContent = data.customer_name;
-                    document.getElementById('analysisResult').textContent = data.analysis;
+                    document.getElementById('analysisResult').textContent = JSON.stringify(data.analysis, null, 2);
                     resultState.classList.remove('hidden');
                 } else {
                     throw new Error(data.message || 'Analysis failed');
@@ -140,6 +146,25 @@
             resultState.classList.add('hidden');
             form.classList.remove('hidden');
             submitBtn.disabled = false;
+        }
+
+        function copyToClipboard() {
+            const resultText = document.getElementById('analysisResult').textContent;
+            navigator.clipboard.writeText(resultText).then(() => {
+                const copyBtn = document.getElementById('copyBtn');
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg><span>Copied!</span>';
+                copyBtn.classList.add('bg-green-100', 'text-green-700');
+                copyBtn.classList.remove('bg-gray-100', 'text-gray-700');
+                
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                    copyBtn.classList.remove('bg-green-100', 'text-green-700');
+                    copyBtn.classList.add('bg-gray-100', 'text-gray-700');
+                }, 2000);
+            }).catch(() => {
+                alert('Failed to copy to clipboard');
+            });
         }
     </script>
 </x-app-layout>

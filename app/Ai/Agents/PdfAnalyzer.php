@@ -21,7 +21,7 @@ class PdfAnalyzer implements Agent, Conversational, HasStructuredOutput, HasTool
      */
     public function instructions(): Stringable|string
     {
-        return 'You are a document analysis assistant. Carefully read the provided documents or files and answer the user\'s questions accurately based on their content.';
+        return view('instructions.pdf-analyzer')->render();
     }
 
     /**
