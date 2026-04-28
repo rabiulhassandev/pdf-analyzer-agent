@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ai\Agents\PdfAnalyzer;
 use App\Models\Customer;
+use App\Models\Prompt;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -18,8 +19,9 @@ class AnalysisController extends Controller
     public function index(): View
     {
         $customers = Customer::orderBy('name')->get();
+        $prompts = Prompt::where('status', 'active')->get();
 
-        return view('analysis.index', compact('customers'));
+        return view('analysis.index', compact('customers', 'prompts'));
     }
 
     /**
@@ -30,20 +32,23 @@ class AnalysisController extends Controller
         $validated = $request->validate([
             'pdf' => ['required', 'file', 'mimes:pdf', 'max:10240'],
             'customer_id' => ['required', 'exists:customers,id'],
+            'prompt_id' => ['nullable', 'exists:prompts,id'],
+            'prompt_content' => ['nullable', 'string'],
         ]);
 
-        $customer = Customer::findOrFail($validated['customer_id']);
+        $prompt = isset($validated['prompt_id']) ? Prompt::find($validated['prompt_id']) : null;
+        $promptContent = $validated['prompt_content'] ?? ($prompt->content ?? 'Analyze the following PDF and extract key information.');
 
         try {
             $file = $request->file('pdf');
             $filePath = $file->getRealPath();
 
-            $cacheKey = 'pdf_analysis_' . md5($file->getClientOriginalName() . filesize($filePath));
+            $cacheKey = 'pdf_analysis_'.md5($file->getClientOriginalName().filesize($filePath).$validated['prompt_id']);
 
-            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $customer) {
+            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $promptContent) {
                 $res = (new PdfAnalyzer)->prompt(
-                    $customer->prompt ?? 'Analyze the following PDF and extract key information.',
-                    model: 'claude-haiku-4-5-20251001',
+                    $promptContent,
+                    model: $prompt->model ?? 'claude-haiku-4-5-20251001',
                     attachments: [
                         Document::fromPath($filePath),
                     ]
@@ -54,19 +59,18 @@ class AnalysisController extends Controller
 
             $analysis = json_decode($analysisResult, true);
 
-            // If it still contains "value" as JSON string
             if (isset($analysis['value'])) {
                 $analysis = json_decode($analysis['value'], true);
             }
 
             return response()->json([
                 'success' => true,
-                'analysis' => $analysis,
+                'result' => $analysis,
             ]);
         } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => 'Network issue! PDF analysis failed: ' . $e->getMessage(),
+                'message' => 'PDF analysis failed: '.$e->getMessage(),
             ], 500);
         }
     }

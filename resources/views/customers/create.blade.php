@@ -1,89 +1,57 @@
-<x-app-layout>
-    <div class="mb-6">
-        <a href="{{ route('customers.index') }}" class="text-blue-600 hover:text-blue-700 font-medium">
-            &larr; Back to Customers
-        </a>
-    </div>
+<x-admin-layout>
+    <div class="space-y-6">
+        <div class="flex flex-col gap-1">
+            <h2 class="text-[30px] font-semibold text-slate-900 leading-[1.3]">Add Customer</h2>
+            <p class="text-sm text-slate-500 leading-[1.6]">Register a new customer to the system.</p>
+        </div>
 
-    <div class="max-w-2xl">
-        <h1 class="text-3xl font-bold text-gray-900 mb-6">Create New Customer</h1>
-
-        <div class="bg-white rounded-lg border border-gray-200 p-8">
-            <form action="{{ route('customers.store') }}" method="POST" class="space-y-6">
+        <div class="max-w-2xl">
+            <form action="{{ route('customers.store') }}" method="POST" class="bg-white border border-slate-200 rounded-xl shadow-sm p-6">
                 @csrf
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Name <span class="text-red-500">*</span></label>
+                        <input type="text" name="name" value="{{ old('name') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        @error('name')
+                            <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Name -->
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-900 mb-2">
-                        Name <span class="text-red-600">*</span>
-                    </label>
-                    <input type="text" id="name" name="name" value="{{ old('name') }}" 
-                        class="w-full px-4 py-2 border @error('name') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                        required>
-                    @error('name')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Email <span class="text-red-500">*</span></label>
+                        <input type="email" name="email" value="{{ old('email') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        @error('email')
+                            <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
 
-                <!-- Email -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-900 mb-2">
-                        Email <span class="text-red-600">*</span>
-                    </label>
-                    <input type="email" id="email" name="email" value="{{ old('email') }}" 
-                        class="w-full px-4 py-2 border @error('email') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                        required>
-                    @error('email')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Phone</label>
+                        <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
 
-                <!-- Phone -->
-                <div>
-                    <label for="phone" class="block text-sm font-medium text-gray-900 mb-2">
-                        Phone (Optional)
-                    </label>
-                    <input type="tel" id="phone" name="phone" value="{{ old('phone') }}" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    @error('phone')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Company</label>
+                        <input type="text" name="company" value="{{ old('company') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                    </div>
 
-                <!-- Company -->
-                <div>
-                    <label for="company" class="block text-sm font-medium text-gray-900 mb-2">
-                        Company (Optional)
-                    </label>
-                    <input type="text" id="company" name="company" value="{{ old('company') }}" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                    @error('company')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
+                    <div>
+                        <label class="flex items-center gap-2">
+                            <input type="checkbox" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }} class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                            <span class="text-sm text-slate-700 font-medium">Active Customer</span>
+                        </label>
+                    </div>
 
-                <!-- Prompt -->
-                <div>
-                    <label for="prompt" class="block text-sm font-medium text-gray-900 mb-2">
-                        Prompt (Optional)
-                    </label>
-                    <textarea id="prompt" name="prompt" rows="4"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('prompt') }}</textarea>
-                    @error('prompt')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Submit -->
-                <div class="flex gap-3 pt-4">
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-                        Create Customer
-                    </button>
-                    <a href="{{ route('customers.index') }}" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">
-                        Cancel
-                    </a>
+                    <div class="pt-4 border-t border-slate-200 flex justify-between items-center">
+                        <a href="{{ route('customers.index') }}" class="text-slate-600 font-medium text-sm hover:text-slate-900">
+                            Cancel
+                        </a>
+                        <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all">
+                            Save Customer
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

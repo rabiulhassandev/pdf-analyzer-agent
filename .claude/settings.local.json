@@ -1,6 +1,18 @@
 {
+  "permissions": {
+    "allow": [
+      "mcp__laravel-boost__application-info",
+      "Bash(php artisan *)",
+      "mcp__laravel-boost__database-schema",
+      "Bash(php E:/programming/Env_Installed/laragon/www/pdf-analyzer/artisan migrate:rollback --no-interaction)",
+      "Bash(php E:/programming/Env_Installed/laragon/www/pdf-analyzer/artisan tinker --no-interaction --execute='DB::statement\\(\"SET FOREIGN_KEY_CHECKS=0\"\\); DB::statement\\(\"DROP TABLE IF EXISTS analyses\"\\); DB::statement\\(\"DROP TABLE IF EXISTS prompts\"\\); DB::statement\\(\"SET FOREIGN_KEY_CHECKS=1\"\\);')",
+      "Bash(vendor/bin/pint --dirty --format agent)",
+      "Bash(npm run *)",
+      "Bash(php -l resources/views/prompts/create.blade.php)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
   "enabledMcpjsonServers": [
     "laravel-boost"
-  ],
-  "enableAllProjectMcpServers": true
+  ]
 }

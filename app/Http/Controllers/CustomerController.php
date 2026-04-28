@@ -12,9 +12,33 @@ class CustomerController extends Controller
     /**
      * Display a listing of the customers.
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $customers = Customer::orderBy('name')->paginate(15);
+        $query = Customer::query()->withCount('analyses');
+
+        if ($request->has('search')) {
+            $query->where('company', 'like', '%'.$request->search.'%')
+                ->orWhere('name', 'like', '%'.$request->search.'%');
+        }
+
+        if ($request->has('plan')) {
+            $plan = $request->plan;
+            if ($plan === 'enterprise') {
+                $query->where('is_active', true);
+            } elseif ($plan === 'standard') {
+                $query->where('is_active', false);
+            }
+        }
+
+        if ($request->has('status')) {
+            if ($request->status === 'active') {
+                $query->where('is_active', true);
+            } elseif ($request->status === 'inactive') {
+                $query->where('is_active', false);
+            }
+        }
+
+        $customers = $query->orderBy('name')->paginate(12);
 
         return view('customers.index', compact('customers'));
     }

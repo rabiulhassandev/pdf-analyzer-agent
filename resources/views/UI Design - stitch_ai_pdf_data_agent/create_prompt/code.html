@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Prompt Configuration - PDF Analyzer AI</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-error": "#ffffff",
+                    "on-surface": "#191c1e",
+                    "surface-container-lowest": "#ffffff",
+                    "on-secondary-fixed": "#001a42",
+                    "inverse-surface": "#2d3133",
+                    "primary-container": "#131b2e",
+                    "primary-fixed": "#dae2fd",
+                    "on-tertiary-container": "#75859d",
+                    "on-secondary": "#ffffff",
+                    "on-surface-variant": "#45464d",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "background": "#f7f9fb",
+                    "secondary-fixed": "#d8e2ff",
+                    "primary": "#000000",
+                    "surface-dim": "#d8dadc",
+                    "inverse-primary": "#bec6e0",
+                    "surface": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "on-secondary-fixed-variant": "#004395",
+                    "on-error-container": "#93000a",
+                    "tertiary-container": "#0b1c30",
+                    "surface-bright": "#f7f9fb",
+                    "secondary-container": "#2170e4",
+                    "surface-tint": "#565e74",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "surface-container-low": "#f2f4f6",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container-high": "#e6e8ea",
+                    "on-secondary-container": "#fefcff",
+                    "secondary": "#0058be",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "on-primary": "#ffffff",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-primary-container": "#7c839b",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c6c6cd",
+                    "outline": "#76777d",
+                    "surface-container": "#eceef0",
+                    "inverse-on-surface": "#eff1f3",
+                    "primary-fixed-dim": "#bec6e0",
+                    "tertiary-fixed": "#d3e4fe",
+                    "error-container": "#ffdad6",
+                    "on-background": "#191c1e",
+                    "surface-variant": "#e0e3e5"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "base": "8px",
+                    "lg": "40px",
+                    "container-max": "1440px",
+                    "xs": "4px",
+                    "gutter": "24px",
+                    "md": "24px",
+                    "sm": "12px",
+                    "xl": "64px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-md": ["Inter"],
+                    "label-md": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["30px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                    "display-lg": ["48px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-lg": ["20px", {"lineHeight": "1.4", "fontWeight": "600"}],
+                    "body-md": ["14px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "label-sm": ["11px", {"lineHeight": "1", "letterSpacing": "0.03em", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                    "display-md": ["36px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-md": ["12px", {"lineHeight": "1", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .layered-card {
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex">
+<!-- NavigationDrawer Component -->
+<aside class="fixed left-0 top-0 h-full w-[280px] bg-white border-r border-slate-200 flex flex-col z-40">
+<div class="p-6 h-16 flex items-center">
+<span class="text-slate-900 font-black font-inter text-sm uppercase tracking-widest">ADMIN CONSOLE</span>
+</div>
+<nav class="flex flex-col gap-2 p-4 flex-grow">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-inter text-sm font-semibold uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="group">group</span>
+<span class="font-inter text-sm font-semibold uppercase tracking-widest">Customers</span>
+</a>
+<!-- Active State: Prompts -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-slate-100 text-blue-600 border-r-4 border-blue-600 font-semibold transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-inter text-sm font-semibold uppercase tracking-widest">Prompts</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="font-inter text-sm font-semibold uppercase tracking-widest">Analyzer</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 hover:bg-slate-50 transition-all duration-200 mt-auto" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-inter text-sm font-semibold uppercase tracking-widest">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Shell -->
+<main class="flex-1 ml-[280px] flex flex-col min-h-screen">
+<!-- TopAppBar Component -->
+<header class="flex items-center justify-between px-6 h-16 w-full bg-white border-b border-slate-200 sticky top-0 z-30 shadow-sm">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-blue-600" data-icon="analytics">analytics</span>
+<h1 class="text-lg font-bold text-slate-900 tracking-tight font-inter">PDF Analyzer AI</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex flex-col items-end mr-2">
+<span class="font-inter text-sm font-medium text-slate-900">Admin User</span>
+<span class="font-inter text-xs text-slate-500">Super Administrator</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center border-2 border-white shadow-sm overflow-hidden cursor-pointer active:opacity-80">
+<img alt="Avatar" class="w-full h-full object-cover" data-alt="professional corporate headshot of a business administrator in a well-lit modern office setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAis6hJIjswSA0ODODAej7mFT6PQebCObzYRssF6wuUWAVNmoYcEhk484XC-HEp-HT5Fe9BCwwMJuBmJ2f9cuEvpKQSw1Hnk-KXdkHnTurp1rmpGyzIYw4j0PWaLSJvt9R7k_-rtd6KpehvVrJK312eQsBuFP2he_dKN7Yn8Oj1jmweRTGzobFb4EkCq5E_JeJzcanHbqwQMVPtODj4-SXqFf8tS_qDPbxr9dUrGG7lFPM6Egrh87T9CUKvcaCFNu8ywodwbQ9gW9YX"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<div class="p-lg flex-1 overflow-y-auto">
+<div class="max-w-4xl mx-auto space-y-md">
+<!-- Header Section -->
+<div class="flex flex-col gap-xs">
+<h2 class="font-headline-md text-headline-md text-on-surface">Prompt Engineering</h2>
+<p class="font-body-md text-body-md text-outline">Configure AI behavior for specific business contexts and customer requirements.</p>
+</div>
+<!-- Form Card -->
+<div class="bg-white border border-slate-200 rounded-xl layered-card overflow-hidden">
+<div class="p-md border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-secondary" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-title-lg text-title-lg">New Prompt Template</span>
+</div>
+<div class="flex gap-2">
+<span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider">Draft</span>
+</div>
+</div>
+<form class="p-lg space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<!-- Customer Selection -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface uppercase tracking-wide">Customer</label>
+<div class="relative group">
+<select class="w-full h-12 bg-white border border-outline-variant rounded-lg px-4 font-body-md text-body-md appearance-none focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/10 transition-all cursor-pointer">
+<option disabled="" selected="" value="">Select a client</option>
+<option value="acme">Acme Global Logistics</option>
+<option value="nexus">Nexus Financial Group</option>
+<option value="horizon">Horizon Healthcare</option>
+<option value="quantum">Quantum Retail Systems</option>
+</select>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-outline" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Business Type -->
+<div class="space-y-xs">
+<label class="font-label-md text-label-md text-on-surface uppercase tracking-wide">Business Type</label>
+<div class="relative">
+<input class="w-full h-12 bg-white border border-outline-variant rounded-lg px-4 font-body-md text-body-md focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/10 transition-all" placeholder="e.g. Legal Analysis, Financial Auditing" type="text"/>
+<span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-outline/40 text-sm" data-icon="info">info</span>
+</div>
+</div>
+</div>
+<!-- AI Prompt Area -->
+<div class="space-y-xs">
+<div class="flex justify-between items-end">
+<label class="font-label-md text-label-md text-on-surface uppercase tracking-wide">AI System Prompt</label>
+<span class="text-[10px] text-outline font-medium">Use {{brackets}} for dynamic variables</span>
+</div>
+<div class="relative">
+<textarea class="w-full bg-white border border-outline-variant rounded-lg p-4 font-body-md text-body-md focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/10 transition-all resize-none leading-relaxed" placeholder="Enter the base system instructions for the AI model..." rows="12"></textarea>
+<!-- Tooltip/Insight Chip inside Textarea -->
+<div class="absolute bottom-4 right-4 flex gap-2">
+<div class="bg-surface-container-low border border-outline-variant/30 rounded-lg px-3 py-1.5 flex items-center gap-2 shadow-sm">
+<span class="material-symbols-outlined text-secondary text-base" data-icon="lightbulb" data-weight="fill" style="font-variation-settings: 'FILL' 1;">lightbulb</span>
+<span class="text-[11px] font-semibold text-on-secondary-fixed-variant">AI-Optimized</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-md flex items-center justify-between border-t border-slate-100">
+<div class="flex gap-4">
+<button class="flex items-center gap-2 px-4 py-2 text-slate-500 hover:text-slate-800 font-inter text-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+                                    Discard
+                                </button>
+<button class="flex items-center gap-2 px-4 py-2 text-slate-500 hover:text-slate-800 font-inter text-sm font-semibold transition-colors" type="button">
+<span class="material-symbols-outlined text-lg" data-icon="history">history</span>
+                                    Versions
+                                </button>
+</div>
+<div class="flex gap-4">
+<button class="px-6 py-3 border border-outline-variant rounded-lg text-on-surface font-inter text-sm font-semibold hover:bg-slate-50 transition-all active:scale-[0.98]" type="button">
+                                    Test Prompt
+                                </button>
+<button class="px-8 py-3 bg-secondary text-white rounded-lg font-inter text-sm font-bold shadow-lg shadow-blue-500/20 hover:bg-blue-700 transition-all active:scale-[0.98] flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-lg" data-icon="save">save</span>
+                                    Save Prompt
+                                </button>
+</div>
+</div>
+</form>
+</div>
+<!-- Guidance / Info Bento -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<div class="col-span-1 p-md bg-white border border-slate-200 rounded-xl layered-card flex flex-col gap-2">
+<div class="w-8 h-8 rounded bg-blue-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-blue-600 text-lg" data-icon="psychology">psychology</span>
+</div>
+<h4 class="font-title-lg text-sm font-bold mt-2">Zero-Shot Logic</h4>
+<p class="text-xs text-outline leading-normal">Ensure your instructions are explicit and lack ambiguity for consistent extraction across complex PDFs.</p>
+</div>
+<div class="col-span-1 p-md bg-white border border-slate-200 rounded-xl layered-card flex flex-col gap-2">
+<div class="w-8 h-8 rounded bg-secondary-fixed/30 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-lg" data-icon="data_object">data_object</span>
+</div>
+<h4 class="font-title-lg text-sm font-bold mt-2">Structured Output</h4>
+<p class="text-xs text-outline leading-normal">The engine defaults to JSON schema. Use prompt blocks to define specific field requirements.</p>
+</div>
+<div class="col-span-1 p-md bg-white border border-slate-200 rounded-xl layered-card flex flex-col gap-2">
+<div class="w-8 h-8 rounded bg-tertiary-fixed/50 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant text-lg" data-icon="security">security</span>
+</div>
+<h4 class="font-title-lg text-sm font-bold mt-2">Compliance Check</h4>
+<p class="text-xs text-outline leading-normal">All prompts are automatically scanned for PII leakage risks before deployment to production nodes.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

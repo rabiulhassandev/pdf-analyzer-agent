@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable(['name', 'email', 'phone', 'company', 'prompt', 'is_active'])]
 class Customer extends Model
@@ -14,9 +15,20 @@ class Customer extends Model
     /** @use HasFactory<CustomerFactory> */
     use HasFactory;
 
-    /**
-     * Scope a query to only include active customers.
-     */
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+
+    public function prompts(): HasMany
+    {
+        return $this->hasMany(Prompt::class);
+    }
+
+    public function analyses(): HasMany
+    {
+        return $this->hasMany(Analysis::class);
+    }
+
     public function scopeActive(Builder $query): Builder
     {
         return $query->where('is_active', true);

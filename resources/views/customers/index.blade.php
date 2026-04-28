@@ -1,71 +1,77 @@
-<x-app-layout>
-    <div class="mb-6 flex items-center justify-between">
-        <h1 class="text-3xl font-bold text-gray-900">Customers</h1>
-        <a href="{{ route('customers.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
-            + New Customer
-        </a>
-    </div>
-
-    <!-- Success Message -->
-    @if (session('success'))
-        <div class="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
-            {{ session('success') }}
+<x-admin-layout>
+    <div class="space-y-6">
+        <div class="flex justify-between items-end">
+            <div>
+                <h2 class="text-[30px] font-semibold text-slate-900 leading-[1.3]">Customers</h2>
+                <p class="text-sm text-slate-500 leading-[1.6] mt-1">Manage customer accounts and their documents.</p>
+            </div>
+            <a href="{{ route('customers.create') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-all shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">person_add</span>
+                Add Customer
+            </a>
         </div>
-    @endif
 
-    <!-- Customers Table -->
-    <div class="bg-white rounded-lg border border-gray-200 overflow-hidden">
-        @if ($customers->count())
-            <table class="w-full">
-                <thead class="bg-gray-50 border-b border-gray-200">
+        <div class="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-50 border-b border-slate-200">
                     <tr>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Name</th>
-                        <th class="px-6 py-3 text-left text-sm font-semibold text-gray-900">Prompt</th>
-                        <th class="px-6 py-3 text-center text-sm font-semibold text-gray-900">Actions</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Company</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Contact</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</th>
+                        <th class="px-6 py-4 text-xs font-semibold text-slate-500 uppercase tracking-wider">Prompts</th>
+                        <th class="px-6 py-4"></th>
                     </tr>
                 </thead>
-                <tbody class="divide-y divide-gray-200">
-                    @foreach ($customers as $customer)
-                        <tr class="hover:bg-gray-50 transition-colors">
+                <tbody class="divide-y divide-slate-100">
+                    @forelse ($customers as $customer)
+                        <tr class="hover:bg-slate-50/50 transition-colors">
                             <td class="px-6 py-4">
-                                <a href="{{ route('customers.show', $customer) }}" class="font-medium text-blue-600 hover:text-blue-700">
-                                    {{ $customer->name }}
-                                </a>
+                                <div class="font-semibold text-slate-900">{{ $customer->company ?? $customer->name }}</div>
+                                <div class="text-xs text-slate-400">ID: {{ $customer->id }}</div>
                             </td>
-                            <td class="px-6 py-4 text-gray-600">{{ $customer->prompt }}</td>
-                            <td class="px-6 py-4 text-center">
-                                <div class="flex gap-2 justify-center">
-                                    <a href="{{ route('customers.edit', $customer) }}" class="px-3 py-1 text-sm bg-blue-50 text-blue-600 hover:bg-blue-100 rounded transition-colors">
-                                        Edit
+                            <td class="px-6 py-4 text-sm text-slate-600">
+                                <div>{{ $customer->email }}</div>
+                                <div class="text-xs text-slate-400">{{ $customer->phone }}</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide {{ $customer->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-slate-100 text-slate-600' }}">
+                                    {{ $customer->is_active ? 'Active' : 'Inactive' }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 font-medium">{{ $customer->prompts()->count() }}</td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex items-center gap-2 justify-end">
+                                    <a href="{{ route('customers.edit', $customer) }}" class="p-2 text-slate-400 hover:text-blue-600 transition-colors" title="Edit">
+                                        <span class="material-symbols-outlined">edit</span>
                                     </a>
-                                    <form action="{{ route('customers.destroy', $customer) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?');">
+                                    <form action="{{ route('customers.destroy', $customer) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this customer?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="px-3 py-1 text-sm bg-red-50 text-red-600 hover:bg-red-100 rounded transition-colors">
-                                            Delete
+                                        <button type="submit" class="p-2 text-slate-400 hover:text-red-600 transition-colors" title="Delete">
+                                            <span class="material-symbols-outlined">delete</span>
                                         </button>
                                     </form>
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center text-slate-500">
+                                <span class="material-symbols-outlined text-5xl mb-4 text-slate-300">group</span>
+                                <p class="text-sm">No customers found</p>
+                                <a href="{{ route('customers.create') }}" class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                                    Add First Customer
+                                </a>
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-
-            <!-- Pagination -->
-            <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
-                {{ $customers->links() }}
-            </div>
-        @else
-            <div class="p-12 text-center">
-                <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 8.048M12 4.354L9.172 9.354M12 4.354l2.828 5M15 12H9m6 0a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <p class="text-gray-600 mb-4">No customers yet</p>
-                <a href="{{ route('customers.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors inline-block">
-                    Create First Customer
-                </a>
-            </div>
-        @endif
+            @if ($customers->hasPages())
+                <div class="px-6 py-4 bg-slate-50/50 border-t border-slate-200 flex items-center justify-center">
+                    {{ $customers->links('vendor.pagination.tailwind') }}
+                </div>
+            @endif
+        </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

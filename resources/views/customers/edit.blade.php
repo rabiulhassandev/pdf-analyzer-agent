@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <div class="mb-6">
         <a href="{{ route('customers.index') }}" class="text-blue-600 hover:text-blue-700 font-medium">
             &larr; Back to Customers
@@ -87,4 +87,4 @@
             </form>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>
