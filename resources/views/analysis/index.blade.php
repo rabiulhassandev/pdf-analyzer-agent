@@ -24,7 +24,7 @@
                                 Select File
                             </button>
                         </div>
-                        <div id="selectedFile" class="hidden mt-3 p-3 bg-blue-50 border border-blue-100 rounded-lg items-center justify-between" style="display: flex">
+                        <div id="selectedFile" class="hidden mt-3 p-3 bg-blue-50 border border-blue-100 rounded-lg items-center justify-between">
                             <div class="flex items-center gap-3">
                                 <span class="material-symbols-outlined text-blue-600">picture_as_pdf</span>
                                 <span id="selectedFileName" class="text-sm font-medium text-slate-900"></span>
@@ -209,6 +209,7 @@
                 selectedFileName.textContent = file.name;
                 uploadArea.classList.add('hidden');
                 selectedFile.classList.remove('hidden');
+                selectedFile.classList.add('flex');
                 updateAnalyzeButton();
             }
 
@@ -217,6 +218,7 @@
                 pdfFile.value = '';
                 uploadArea.classList.remove('hidden');
                 selectedFile.classList.add('hidden');
+                selectedFile.classList.remove('flex');
                 updateAnalyzeButton();
             });
 

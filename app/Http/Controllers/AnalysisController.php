@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ai\Agents\PdfAnalyzer;
 use App\Models\Customer;
 use App\Models\Prompt;
+use App\Models\Settings;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -14,7 +15,7 @@ use Laravel\Ai\Files\Document;
 class AnalysisController extends Controller
 {
     /**
-     * Show the PDF analysis form.
+     * Show PDF analysis form.
      */
     public function index(): View
     {
@@ -43,12 +44,15 @@ class AnalysisController extends Controller
             $file = $request->file('pdf');
             $filePath = $file->getRealPath();
 
-            $cacheKey = 'pdf_analysis_'.md5($file->getClientOriginalName().filesize($filePath).$validated['prompt_id']);
+            $settings = Settings::first();
+            $model = $settings->model_version ?? 'claude-haiku-4-5';
 
-            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $promptContent) {
+            $cacheKey = 'pdf_analysis_'.md5($file->getClientOriginalName().filesize($filePath).($validated['prompt_id'] ?? ''));
+
+            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $promptContent, $model) {
                 $res = (new PdfAnalyzer)->prompt(
                     $promptContent,
-                    model: $prompt->model ?? 'claude-haiku-4-5-20251001',
+                    model: $model,
                     attachments: [
                         Document::fromPath($filePath),
                     ]
