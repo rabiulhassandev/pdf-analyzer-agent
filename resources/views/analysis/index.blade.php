@@ -1,8 +1,8 @@
 <x-admin-layout>
     <div class="space-y-6">
         <div class="flex flex-col gap-1">
-            <h2 class="text-[30px] font-semibold text-slate-900 leading-[1.3]">PDF Analysis</h2>
-            <p class="text-sm text-slate-500 leading-[1.6]">Upload PDF documents and analyze with AI-powered prompts.</p>
+            <h2 class="text-[30px] font-semibold text-slate-900 leading-[1.3]">Document Analysis</h2>
+            <p class="text-sm text-slate-500 leading-[1.6]">Upload Documents (PDF, Image, Excel) and analyze with AI-powered prompts.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-1 gap-6">
@@ -13,20 +13,20 @@
                     
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Upload PDF</label>
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Upload Document</label>
                         <div id="uploadArea" class="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-amber-600 hover:bg-slate-50 group cursor-pointer">
                             <div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-amber-50 transition-colors">
                                 <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-amber-600">upload_file</span>
                             </div>
-                            <p class="text-sm text-slate-500 mb-2">Drag and drop PDF here, or click to browse</p>
-                            <input type="file" id="pdfFile" name="pdf" accept=".pdf" class="hidden">
+                            <p class="text-sm text-slate-500 mb-2">Drag and drop Document here, or click to browse</p>
+                            <input type="file" id="documentFile" name="document" accept=".pdf,image/*,.xlsx,.xls,.csv" class="hidden">
                             <button type="button" id="selectFileBtn" class="text-amber-600 font-medium text-sm hover:underline">
                                 Select File
                             </button>
                         </div>
                         <div id="selectedFile" class="hidden mt-3 p-3 bg-amber-50 border border-amber-100 rounded-lg items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-amber-600">picture_as_pdf</span>
+                                <span class="material-symbols-outlined text-amber-600" id="fileIcon">picture_as_pdf</span>
                                 <span id="selectedFileName" class="text-sm font-medium text-slate-900"></span>
                             </div>
                             <button type="button" id="removeFileBtn" class="text-slate-400 hover:text-amber-600">
@@ -62,7 +62,7 @@
                     </div>
 
                     <button type="submit" id="analyzeBtn" class="w-full bg-amber-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-amber-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-                        Analyze PDF
+                        Analyze Document
                     </button>
                 </form>
             </div>
@@ -87,11 +87,11 @@
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                         </div>
-                        <p class="text-slate-600 font-medium">Analyzing PDF...</p>
+                        <p class="text-slate-600 font-medium">Analyzing Document...</p>
                     </div>
                     <pre id="jsonOutput" class="bg-[#0f172a] text-amber-300 font-mono text-xs leading-relaxed p-4 rounded-lg overflow-auto min-h-[400px]"><code>{
   "status": "waiting_for_input",
-  "message": "Upload a PDF and select a customer to begin analysis."
+  "message": "Upload a Document (PDF, Image, Excel) and select a customer to begin analysis."
 }</code></pre>
                 </div>
             </div>
@@ -104,7 +104,7 @@
             const promptId = document.getElementById('promptId');
             const promptContent = document.getElementById('promptContent');
             const uploadArea = document.getElementById('uploadArea');
-            const pdfFile = document.getElementById('pdfFile');
+            const documentFile = document.getElementById('documentFile');
             const selectFileBtn = document.getElementById('selectFileBtn');
             const selectedFile = document.getElementById('selectedFile');
             const selectedFileName = document.getElementById('selectedFileName');
@@ -116,7 +116,7 @@
             const copyBtn = document.getElementById('copyBtn');
             const downloadBtn = document.getElementById('downloadBtn');
 
-            let selectedPdfFile = null;
+            let selectedDocumentFile = null;
 
             // Load prompts when customer is selected
             customerId.addEventListener('change', async function() {
@@ -174,13 +174,13 @@
             });
 
             // File upload handling
-            uploadArea.addEventListener('click', () => pdfFile.click());
+            uploadArea.addEventListener('click', () => documentFile.click());
             selectFileBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
-                pdfFile.click();
+                documentFile.click();
             });
 
-            pdfFile.addEventListener('change', function() {
+            documentFile.addEventListener('change', function() {
                 if (this.files.length > 0) {
                     handleFileSelect(this.files[0]);
                 }
@@ -199,14 +199,24 @@
                 e.preventDefault();
                 uploadArea.classList.remove('border-amber-600', 'bg-slate-50');
                 const files = e.dataTransfer.files;
-                if (files.length > 0 && files[0].type === 'application/pdf') {
+                if (files.length > 0 && files[0].type.match(/pdf|image|excel|spreadsheet|csv/i)) {
                     handleFileSelect(files[0]);
                 }
             });
 
             function handleFileSelect(file) {
-                selectedPdfFile = file;
+                selectedDocumentFile = file;
                 selectedFileName.textContent = file.name;
+                
+                const fileIcon = document.getElementById('fileIcon');
+                if (file.type.startsWith('image/')) {
+                    fileIcon.textContent = 'image';
+                } else if (file.type.includes('spreadsheet') || file.type.includes('excel') || file.type.includes('csv')) {
+                    fileIcon.textContent = 'table';
+                } else {
+                    fileIcon.textContent = 'picture_as_pdf';
+                }
+
                 uploadArea.classList.add('hidden');
                 selectedFile.classList.remove('hidden');
                 selectedFile.classList.add('flex');
@@ -214,8 +224,8 @@
             }
 
             removeFileBtn.addEventListener('click', () => {
-                selectedPdfFile = null;
-                pdfFile.value = '';
+                selectedDocumentFile = null;
+                documentFile.value = '';
                 uploadArea.classList.remove('hidden');
                 selectedFile.classList.add('hidden');
                 selectedFile.classList.remove('flex');
@@ -223,7 +233,7 @@
             });
 
             function updateAnalyzeButton() {
-                analyzeBtn.disabled = !selectedPdfFile || !customerId.value || !promptId.value;
+                analyzeBtn.disabled = !selectedDocumentFile || !customerId.value || !promptId.value;
             }
 
             customerId.addEventListener('change', updateAnalyzeButton);
@@ -233,13 +243,13 @@
             analysisForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
 
-                if (!selectedPdfFile || !customerId.value || !promptId.value) {
-                    alert('Please select a customer, prompt, and upload a PDF file.');
+                if (!selectedDocumentFile || !customerId.value || !promptId.value) {
+                    alert('Please select a customer, prompt, and upload a valid document.');
                     return;
                 }
 
                 const formData = new FormData();
-                formData.append('pdf', selectedPdfFile);
+                formData.append('document', selectedDocumentFile);
                 formData.append('customer_id', customerId.value);
                 formData.append('prompt_id', promptId.value);
                 formData.append('prompt_content', promptContent.value);
