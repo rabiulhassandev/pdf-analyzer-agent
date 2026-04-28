@@ -13,7 +13,7 @@
                 <div class="space-y-6">
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Choose Model Provider</label>
-                        <select id="modelProvider" name="model_provider" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors cursor-pointer">
+                        <select id="modelProvider" name="model_provider" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors cursor-pointer">
                             @foreach ($models as $provider => $data)
                                 <option value="{{ $provider }}" {{ $settings->model_provider === $provider ? 'selected' : '' }}>{{ $data['name'] }}</option>
                             @endforeach
@@ -22,7 +22,7 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Choose Model Version</label>
-                        <select id="modelVersion" name="model_version" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors cursor-pointer">
+                        <select id="modelVersion" name="model_version" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors cursor-pointer">
                             @foreach ($models[$settings->model_provider]['models'] ?? [] as $version => $name)
                                 <option value="{{ $version }}" {{ $settings->model_version === $version ? 'selected' : '' }}>{{ $name }}</option>
                             @endforeach
@@ -31,12 +31,12 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">System Instructions</label>
-                        <textarea name="system_instructions" rows="8" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm focus:outline-none focus:border-blue-500 transition-all resize-none" placeholder="Enter system instructions...">{{ $settings->system_instructions }}</textarea>
+                        <textarea name="system_instructions" rows="8" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm focus:outline-none focus:border-amber-500 transition-all resize-none" placeholder="Enter system instructions...">{{ $settings->system_instructions }}</textarea>
                         <p class="text-xs text-slate-400 mt-2">These instructions guide the AI's behavior when analyzing PDFs.</p>
                     </div>
 
                     <div class="pt-4 border-t border-slate-200">
-                        <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all">
+                        <button type="submit" class="bg-amber-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-amber-700 transition-all">
                             Save Configuration
                         </button>
                     </div>
@@ -77,3 +77,4 @@
         </script>
     @endpush
 </x-admin-layout>
+

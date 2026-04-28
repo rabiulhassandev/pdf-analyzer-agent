@@ -8,7 +8,7 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                         <span class="material-symbols-outlined">group</span>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
 
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                         <span class="material-symbols-outlined">auto_awesome</span>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
 
             <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
                 <div class="flex justify-between items-start mb-4">
-                    <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                         <span class="material-symbols-outlined">description</span>
                     </div>
                 </div>
@@ -41,8 +41,8 @@
             <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-6">
                 <h4 class="text-[20px] font-semibold text-slate-900 mb-4">Quick Actions</h4>
                 <div class="space-y-3">
-                    <a href="{{ route('analysis.index') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all">
-                        <div class="p-2 bg-blue-50 text-blue-600 rounded-lg">
+                    <a href="{{ route('analysis.index') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition-all">
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                             <span class="material-symbols-outlined">upload_file</span>
                         </div>
                         <div>
@@ -50,8 +50,8 @@
                             <div class="text-xs text-slate-500">Upload and analyze documents</div>
                         </div>
                     </a>
-                    <a href="{{ route('prompts.create') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all">
-                        <div class="p-2 bg-purple-50 text-purple-600 rounded-lg">
+                    <a href="{{ route('prompts.create') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition-all">
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                             <span class="material-symbols-outlined">add</span>
                         </div>
                         <div>
@@ -59,8 +59,8 @@
                             <div class="text-xs text-slate-500">Add new AI prompt template</div>
                         </div>
                     </a>
-                    <a href="{{ route('customers.create') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all">
-                        <div class="p-2 bg-emerald-50 text-emerald-600 rounded-lg">
+                    <a href="{{ route('customers.create') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition-all">
+                        <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                             <span class="material-symbols-outlined">person_add</span>
                         </div>
                         <div>
@@ -68,7 +68,7 @@
                             <div class="text-xs text-slate-500">Register new customer</div>
                         </div>
                     </a>
-                    <a href="{{ route('settings.index') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-blue-500 hover:bg-blue-50/50 transition-all">
+                    <a href="{{ route('settings.index') }}" class="flex items-center gap-3 p-4 rounded-lg border border-slate-200 hover:border-amber-500 hover:bg-amber-50/50 transition-all">
                         <div class="p-2 bg-amber-50 text-amber-600 rounded-lg">
                             <span class="material-symbols-outlined">settings</span>
                         </div>
@@ -83,13 +83,13 @@
             <div class="bg-white rounded-xl border border-slate-200 shadow-sm">
                 <div class="p-6 border-b border-slate-200 flex items-center justify-between">
                     <h4 class="text-[20px] font-semibold text-slate-900">Recent Analyses</h4>
-                    <a href="{{ route('analysis.index') }}" class="text-blue-600 text-xs font-bold hover:underline">View All</a>
+                    <a href="{{ route('analysis.index') }}" class="text-amber-600 text-xs font-bold hover:underline">View All</a>
                 </div>
                 <div class="divide-y divide-slate-100">
                     @forelse ($recentAnalyses ?? [] as $analysis)
                         <div class="p-4 px-6 flex items-center justify-between hover:bg-slate-50 transition-colors">
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded bg-red-50 flex items-center justify-center text-red-600">
+                                <div class="w-10 h-10 rounded bg-amber-50 flex items-center justify-center text-amber-600">
                                     <span class="material-symbols-outlined">picture_as_pdf</span>
                                 </div>
                                 <div>

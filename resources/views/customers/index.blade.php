@@ -5,7 +5,7 @@
                 <h2 class="text-[30px] font-semibold text-slate-900 leading-[1.3]">Customers</h2>
                 <p class="text-sm text-slate-500 leading-[1.6] mt-1">Manage customer accounts and their documents.</p>
             </div>
-            <a href="{{ route('customers.create') }}" class="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg flex items-center gap-2 hover:bg-blue-700 transition-all shadow-sm">
+            <a href="{{ route('customers.create') }}" class="px-4 py-2 bg-amber-600 text-white font-medium rounded-lg flex items-center gap-2 hover:bg-amber-700 transition-all shadow-sm">
                 <span class="material-symbols-outlined text-[20px]">person_add</span>
                 Add Customer
             </a>
@@ -34,20 +34,20 @@
                                 <div class="text-xs text-slate-400">{{ $customer->phone }}</div>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide {{ $customer->is_active ? 'bg-emerald-50 text-emerald-700 border border-emerald-100' : 'bg-slate-100 text-slate-600' }}">
+                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide {{ $customer->is_active ? 'bg-amber-50 text-amber-700 border border-amber-100' : 'bg-slate-100 text-slate-600' }}">
                                     {{ $customer->is_active ? 'Active' : 'Inactive' }}
                                 </span>
                             </td>
                             <td class="px-6 py-4 text-sm text-slate-600 font-medium">{{ $customer->prompts()->count() }}</td>
                             <td class="px-6 py-4 text-right">
                                 <div class="flex items-center gap-2 justify-end">
-                                    <a href="{{ route('customers.edit', $customer) }}" class="p-2 text-slate-400 hover:text-blue-600 transition-colors" title="Edit">
+                                    <a href="{{ route('customers.edit', $customer) }}" class="p-2 text-slate-400 hover:text-amber-600 transition-colors" title="Edit">
                                         <span class="material-symbols-outlined">edit</span>
                                     </a>
                                     <form action="{{ route('customers.destroy', $customer) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this customer?');">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="p-2 text-slate-400 hover:text-red-600 transition-colors" title="Delete">
+                                        <button type="submit" class="p-2 text-slate-400 hover:text-amber-600 transition-colors" title="Delete">
                                             <span class="material-symbols-outlined">delete</span>
                                         </button>
                                     </form>
@@ -59,7 +59,7 @@
                             <td colspan="5" class="px-6 py-12 text-center text-slate-500">
                                 <span class="material-symbols-outlined text-5xl mb-4 text-slate-300">group</span>
                                 <p class="text-sm">No customers found</p>
-                                <a href="{{ route('customers.create') }}" class="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700">
+                                <a href="{{ route('customers.create') }}" class="mt-4 inline-block px-4 py-2 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-700">
                                     Add First Customer
                                 </a>
                             </td>
@@ -75,3 +75,4 @@
         </div>
     </div>
 </x-admin-layout>
+

@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="mb-6">
-        <a href="{{ route('customers.index') }}" class="text-blue-600 hover:text-blue-700 font-medium">
+        <a href="{{ route('customers.index') }}" class="text-amber-600 hover:text-amber-700 font-medium">
             &larr; Back to Customers
         </a>
     </div>
@@ -15,7 +15,7 @@
                     <div>
                         <p class="text-sm font-medium text-gray-600">Email</p>
                         <p class="text-lg text-gray-900 mt-1">
-                            <a href="mailto:{{ $customer->email }}" class="text-blue-600 hover:text-blue-700">
+                            <a href="mailto:{{ $customer->email }}" class="text-amber-600 hover:text-amber-700">
                                 {{ $customer->email }}
                             </a>
                         </p>
@@ -53,13 +53,13 @@
 
         <!-- Actions -->
         <div class="space-y-3">
-            <a href="{{ route('customers.edit', $customer) }}" class="w-full block text-center px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+            <a href="{{ route('customers.edit', $customer) }}" class="w-full block text-center px-4 py-2 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-700 transition-colors">
                 Edit
             </a>
             <form action="{{ route('customers.destroy', $customer) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this customer?');">
                 @csrf
                 @method('DELETE')
-                <button class="w-full px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors">
+                <button class="w-full px-4 py-2 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-700 transition-colors">
                     Delete
                 </button>
             </form>

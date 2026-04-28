@@ -10,34 +10,34 @@
                 @csrf
                 <div class="space-y-6">
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Name <span class="text-red-500">*</span></label>
-                        <input type="text" name="name" value="{{ old('name') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Name <span class="text-amber-500">*</span></label>
+                        <input type="text" name="name" value="{{ old('name') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-all">
                         @error('name')
-                            <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                            <p class="text-sm text-amber-500 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Email <span class="text-red-500">*</span></label>
-                        <input type="email" name="email" value="{{ old('email') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Email <span class="text-amber-500">*</span></label>
+                        <input type="email" name="email" value="{{ old('email') }}" required class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-all">
                         @error('email')
-                            <p class="text-sm text-red-500 mt-1">{{ $message }}</p>
+                            <p class="text-sm text-amber-500 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Phone</label>
-                        <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        <input type="tel" name="phone" value="{{ old('phone') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-all">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Company</label>
-                        <input type="text" name="company" value="{{ old('company') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-all">
+                        <input type="text" name="company" value="{{ old('company') }}" class="w-full bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-all">
                     </div>
 
                     <div>
                         <label class="flex items-center gap-2">
-                            <input type="checkbox" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }} class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
+                            <input type="checkbox" name="is_active" value="1" {{ old('is_active', '1') ? 'checked' : '' }} class="w-4 h-4 rounded border-slate-300 text-amber-600 focus:ring-amber-500">
                             <span class="text-sm text-slate-700 font-medium">Active Customer</span>
                         </label>
                     </div>
@@ -46,7 +46,7 @@
                         <a href="{{ route('customers.index') }}" class="text-slate-600 font-medium text-sm hover:text-slate-900">
                             Cancel
                         </a>
-                        <button type="submit" class="bg-blue-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all">
+                        <button type="submit" class="bg-amber-600 text-white px-8 py-3 rounded-lg font-bold hover:bg-amber-700 transition-all">
                             Save Customer
                         </button>
                     </div>
@@ -55,3 +55,4 @@
         </div>
     </div>
 </x-admin-layout>
+

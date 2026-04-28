@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="mb-6">
-        <a href="{{ route('customers.index') }}" class="text-blue-600 hover:text-blue-700 font-medium">
+        <a href="{{ route('customers.index') }}" class="text-amber-600 hover:text-amber-700 font-medium">
             &larr; Back to Customers
         </a>
     </div>
@@ -16,26 +16,26 @@
                 <!-- Name -->
                 <div>
                     <label for="name" class="block text-sm font-medium text-gray-900 mb-2">
-                        Name <span class="text-red-600">*</span>
+                        Name <span class="text-amber-600">*</span>
                     </label>
                     <input type="text" id="name" name="name" value="{{ old('name', $customer->name) }}" 
-                        class="w-full px-4 py-2 border @error('name') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        class="w-full px-4 py-2 border @error('name') border-amber-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" 
                         required>
                     @error('name')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-amber-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-900 mb-2">
-                        Email <span class="text-red-600">*</span>
+                        Email <span class="text-amber-600">*</span>
                     </label>
                     <input type="email" id="email" name="email" value="{{ old('email', $customer->email) }}" 
-                        class="w-full px-4 py-2 border @error('email') border-red-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
+                        class="w-full px-4 py-2 border @error('email') border-amber-300 @else border-gray-300 @enderror rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500" 
                         required>
                     @error('email')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-amber-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -45,9 +45,9 @@
                         Phone (Optional)
                     </label>
                     <input type="tel" id="phone" name="phone" value="{{ old('phone', $customer->phone) }}" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
                     @error('phone')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-amber-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -57,9 +57,9 @@
                         Company (Optional)
                     </label>
                     <input type="text" id="company" name="company" value="{{ old('company', $customer->company) }}" 
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">
                     @error('company')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-amber-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
@@ -69,15 +69,15 @@
                         Prompt (Optional)
                     </label>
                     <textarea id="prompt" name="prompt" rows="4"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">{{ old('prompt', $customer->prompt) }}</textarea>
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500">{{ old('prompt', $customer->prompt) }}</textarea>
                     @error('prompt')
-                        <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                        <p class="text-sm text-amber-600 mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
                 <!-- Submit -->
                 <div class="flex gap-3 pt-4">
-                    <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                    <button type="submit" class="px-6 py-2 bg-amber-600 text-white rounded-lg font-medium hover:bg-amber-700 transition-colors">
                         Update Customer
                     </button>
                     <a href="{{ route('customers.index') }}" class="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors">

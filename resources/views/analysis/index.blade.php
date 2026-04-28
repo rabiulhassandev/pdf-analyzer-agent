@@ -14,22 +14,22 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Upload PDF</label>
-                        <div id="uploadArea" class="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-blue-600 hover:bg-slate-50 group cursor-pointer">
-                            <div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-blue-50 transition-colors">
-                                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-blue-600">upload_file</span>
+                        <div id="uploadArea" class="border-2 border-dashed border-slate-200 rounded-xl p-8 flex flex-col items-center justify-center text-center transition-all hover:border-amber-600 hover:bg-slate-50 group cursor-pointer">
+                            <div class="w-12 h-12 rounded-full bg-slate-50 flex items-center justify-center mb-4 group-hover:bg-amber-50 transition-colors">
+                                <span class="material-symbols-outlined text-2xl text-slate-400 group-hover:text-amber-600">upload_file</span>
                             </div>
                             <p class="text-sm text-slate-500 mb-2">Drag and drop PDF here, or click to browse</p>
                             <input type="file" id="pdfFile" name="pdf" accept=".pdf" class="hidden">
-                            <button type="button" id="selectFileBtn" class="text-blue-600 font-medium text-sm hover:underline">
+                            <button type="button" id="selectFileBtn" class="text-amber-600 font-medium text-sm hover:underline">
                                 Select File
                             </button>
                         </div>
-                        <div id="selectedFile" class="hidden mt-3 p-3 bg-blue-50 border border-blue-100 rounded-lg items-center justify-between">
+                        <div id="selectedFile" class="hidden mt-3 p-3 bg-amber-50 border border-amber-100 rounded-lg items-center justify-between">
                             <div class="flex items-center gap-3">
-                                <span class="material-symbols-outlined text-blue-600">picture_as_pdf</span>
+                                <span class="material-symbols-outlined text-amber-600">picture_as_pdf</span>
                                 <span id="selectedFileName" class="text-sm font-medium text-slate-900"></span>
                             </div>
-                            <button type="button" id="removeFileBtn" class="text-slate-400 hover:text-red-600">
+                            <button type="button" id="removeFileBtn" class="text-slate-400 hover:text-amber-600">
                                 <span class="material-symbols-outlined">close</span>
                             </button>
                         </div>
@@ -39,7 +39,7 @@
                     
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Select Customer</label>
-                        <select id="customerId" name="customer_id" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors cursor-pointer">
+                        <select id="customerId" name="customer_id" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors cursor-pointer">
                             <option value="">Select Customer</option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->company ?? $customer->name }}</option>
@@ -49,7 +49,7 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Select Prompt</label>
-                        <select id="promptId" name="prompt_id" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-blue-500 transition-colors cursor-pointer" disabled>
+                        <select id="promptId" name="prompt_id" class="w-full appearance-none bg-white border border-slate-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition-colors cursor-pointer" disabled>
                             <option value="">Select Prompt</option>
                         </select>
                     </div>
@@ -58,10 +58,10 @@
 
                     <div>
                         <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Prompt Content</label>
-                        <textarea id="promptContent" name="prompt_content" rows="8" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm focus:outline-none focus:border-blue-500 transition-all resize-none" placeholder="Prompt content will appear here..." readonly></textarea>
+                        <textarea id="promptContent" name="prompt_content" rows="8" class="w-full bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm focus:outline-none focus:border-amber-500 transition-all resize-none" placeholder="Prompt content will appear here..." readonly></textarea>
                     </div>
 
-                    <button type="submit" id="analyzeBtn" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    <button type="submit" id="analyzeBtn" class="w-full bg-amber-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-amber-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
                         Analyze PDF
                     </button>
                 </form>
@@ -82,14 +82,14 @@
                 <div class="p-6">
                     <div id="loadingState" class="hidden text-center py-12">
                         <div class="animate-spin w-10 h-10 mx-auto mb-4">
-                            <svg class="w-10 h-10 text-blue-600" fill="none" viewBox="0 0 24 24">
+                            <svg class="w-10 h-10 text-amber-600" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
                         </div>
                         <p class="text-slate-600 font-medium">Analyzing PDF...</p>
                     </div>
-                    <pre id="jsonOutput" class="bg-[#0f172a] text-blue-300 font-mono text-xs leading-relaxed p-4 rounded-lg overflow-auto min-h-[400px]"><code>{
+                    <pre id="jsonOutput" class="bg-[#0f172a] text-amber-300 font-mono text-xs leading-relaxed p-4 rounded-lg overflow-auto min-h-[400px]"><code>{
   "status": "waiting_for_input",
   "message": "Upload a PDF and select a customer to begin analysis."
 }</code></pre>
@@ -188,16 +188,16 @@
 
             uploadArea.addEventListener('dragover', (e) => {
                 e.preventDefault();
-                uploadArea.classList.add('border-blue-600', 'bg-slate-50');
+                uploadArea.classList.add('border-amber-600', 'bg-slate-50');
             });
 
             uploadArea.addEventListener('dragleave', () => {
-                uploadArea.classList.remove('border-blue-600', 'bg-slate-50');
+                uploadArea.classList.remove('border-amber-600', 'bg-slate-50');
             });
 
             uploadArea.addEventListener('drop', (e) => {
                 e.preventDefault();
-                uploadArea.classList.remove('border-blue-600', 'bg-slate-50');
+                uploadArea.classList.remove('border-amber-600', 'bg-slate-50');
                 const files = e.dataTransfer.files;
                 if (files.length > 0 && files[0].type === 'application/pdf') {
                     handleFileSelect(files[0]);
@@ -284,7 +284,7 @@
             // Copy functionality
             copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(jsonOutput.textContent).then(() => {
-                    copyBtn.innerHTML = '<span class="material-symbols-outlined text-sm text-emerald-600">check</span>';
+                    copyBtn.innerHTML = '<span class="material-symbols-outlined text-sm text-amber-600">check</span>';
                     setTimeout(() => {
                         copyBtn.innerHTML = '<span class="material-symbols-outlined text-sm">content_copy</span>';
                     }, 2000);
@@ -304,12 +304,12 @@
 
             function highlightJson(json) {
                 return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
-                    let cls = 'text-blue-300';
+                    let cls = 'text-amber-300';
                     if (/^"/.test(match)) {
                         if (/:$/.test(match)) {
-                            cls = 'text-emerald-400';
+                            cls = 'text-amber-400';
                         } else {
-                            cls = 'text-blue-300';
+                            cls = 'text-amber-300';
                         }
                     } else if (/true|false/.test(match)) {
                         cls = 'text-amber-400';
@@ -322,3 +322,4 @@
         </script>
     @endpush
 </x-admin-layout>
+
