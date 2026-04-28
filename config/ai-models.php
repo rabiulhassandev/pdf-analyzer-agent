@@ -27,4 +27,11 @@ return [
             'gemini-1.5-pro' => 'Gemini 1.5 Pro',
         ],
     ],
+    'deepseek' => [
+        'name' => 'DeepSeek (DeepSeek)',
+        'models' => [
+            'deepseek-chat' => 'DeepSeek Chat (V3)',
+            'deepseek-reasoner' => 'DeepSeek Reasoner (R1)',
+        ],
+    ],
 ];

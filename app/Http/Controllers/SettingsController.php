@@ -23,7 +23,7 @@ class SettingsController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'model_provider' => 'required|string|in:anthropic,openai,gemini',
+            'model_provider' => 'required|string|in:anthropic,openai,gemini,deepseek',
             'model_version' => 'required|string',
             'system_instructions' => 'nullable|string',
         ]);

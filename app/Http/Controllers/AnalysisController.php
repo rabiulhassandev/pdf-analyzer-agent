@@ -47,18 +47,27 @@ class AnalysisController extends Controller
             $mimeType = $file->getMimeType();
 
             $settings = Settings::first();
+            $provider = $settings->model_provider ?? 'anthropic';
             $model = $settings->model_version ?? 'claude-haiku-4-5';
+
+            if (! in_array($provider, ['anthropic', 'openai', 'gemini'])) {
+                return response()->json([
+                    'success' => false,
+                    'message' => ucfirst($provider) . ' does not support direct document/image analysis yet. Please configure OpenAI, Anthropic, or Gemini in the Settings.',
+                ], 400);
+            }
 
             $cacheKey = 'document_analysis_'.md5($file->getClientOriginalName().filesize($filePath).($validated['prompt_id'] ?? ''));
 
-            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $mimeType, $promptContent, $model) {
+            $analysisResult = Cache::remember($cacheKey, 60, function () use ($filePath, $mimeType, $promptContent, $provider, $model) {
                 // If it's an image, we use Image::fromPath, else Document::fromPath
-                $attachment = str_starts_with($mimeType, 'image/')
-                    ? Image::fromPath($filePath)
-                    : Document::fromPath($filePath);
+                $attachment = str_starts_with($mimeType, 'image/') 
+                    ? \Laravel\Ai\Files\Image::fromPath($filePath) 
+                    : \Laravel\Ai\Files\Document::fromPath($filePath);
 
                 $res = (new PdfAnalyzer)->prompt(
                     $promptContent,
+                    provider: \Laravel\Ai\Enums\Lab::tryFrom($provider) ?? \Laravel\Ai\Enums\Lab::Anthropic,
                     model: $model,
                     attachments: [
                         $attachment,
