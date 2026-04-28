@@ -21,7 +21,15 @@ class PdfAnalyzer implements Agent, Conversational, HasStructuredOutput, HasTool
      */
     public function instructions(): Stringable|string
     {
-        return view('instructions.pdf-analyzer')->render();
+        // get instructions from settings or use default
+        $settings = \App\Models\Settings::first();
+        $instructions = $settings->system_instructions ?? view('instructions.pdf-analyzer')->render();
+
+        dd($instructions);
+
+        return $instructions;
+    
+        // return view('instructions.pdf-analyzer')->render();
     }
 
     /**
