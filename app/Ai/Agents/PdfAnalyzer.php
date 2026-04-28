@@ -25,8 +25,6 @@ class PdfAnalyzer implements Agent, Conversational, HasStructuredOutput, HasTool
         $settings = \App\Models\Settings::first();
         $instructions = $settings->system_instructions ?? view('instructions.pdf-analyzer')->render();
 
-        dd($instructions);
-
         return $instructions;
     
         // return view('instructions.pdf-analyzer')->render();
