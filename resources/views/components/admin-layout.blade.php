@@ -31,20 +31,20 @@
     <body class="bg-background text-on-surface antialiased min-h-screen flex">
         @auth
             @if (auth()->check())
-                <aside class="fixed left-0 top-0 h-full w-[280px] bg-white border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen sticky top-0 z-50 font-inter antialiased text-sm font-medium">
+                <aside class="fixed left-0 top-0 h-full w-[280px] bg-gray-900 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen sticky top-0 z-50 font-inter antialiased text-sm font-medium">
                     <div class="p-6 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-lg bg-[#131b2e] flex items-center justify-center text-white">
+                        <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center text-white">
                             <span class="material-symbols-outlined">analytics</span>
                         </div>
                         <div>
-                            <h1 class="text-xl font-bold tracking-tight text-slate-900">PDF Analyzer AI</h1>
-                            <p class="text-[10px] text-slate-500 uppercase tracking-wider">Enterprise Suite</p>
+                            <h1 class="text-xl font-bold tracking-tight text-white">PDF <span class="text-amber-500">Analyzer</span></h1>
+                            <p class="text-[10px] text-white uppercase tracking-wider">Enterprise Suite</p>
                         </div>
                     </div>
 
                     @if (request()->routeIs('prompts.*') || request()->routeIs('customers.create'))
                         <div class="px-6 mt-4">
-                            <button wire:click="openModal" class="w-full py-2.5 bg-[#0058be] text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-[#004a9e] transition-all">
+                            <button wire:click="openModal" class="w-full py-2.5 bg-amber-500 text-white rounded-lg font-semibold flex items-center justify-center gap-2 shadow-sm hover:bg-amber-600 transition-all">
                                 <span class="material-symbols-outlined">add</span>
                                 New Entry
                             </button>
@@ -52,27 +52,27 @@
                     @endif
 
                     <nav class="flex-1 mt-6 px-4 space-y-1">
-                        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('dashboard') ? 'bg-slate-100 text-[#0058be] border-r-4 border-[#0058be] font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('dashboard') ? 'bg-amber-500 text-white font-semibold' : 'text-white hover:bg-amber-500 hover:text-white' }}">
                             <span class="material-symbols-outlined {{ request()->routeIs('dashboard') ? 'material-symbols-filled' : '' }}">dashboard</span>
                             <span class="text-sm font-semibold uppercase tracking-widest">Dashboard</span>
                         </a>
 
-                        <a href="{{ route('customers.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('customers.*') ? 'bg-slate-100 text-[#0058be] border-r-4 border-[#0058be] font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <a href="{{ route('customers.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('customers.*') ? 'bg-amber-500 text-white font-semibold' : 'text-white hover:bg-amber-500 hover:text-white' }}">
                             <span class="material-symbols-outlined {{ request()->routeIs('customers.*') ? 'material-symbols-filled' : '' }}">group</span>
                             <span class="text-sm font-semibold uppercase tracking-widest">Customers</span>
                         </a>
 
-                        <a href="{{ route('prompts.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('prompts.*') ? 'bg-slate-100 text-[#0058be] border-r-4 border-[#0058be] font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <a href="{{ route('prompts.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('prompts.*') ? 'bg-amber-500 text-white font-semibold' : 'text-white hover:bg-amber-500 hover:text-white' }}">
                             <span class="material-symbols-outlined {{ request()->routeIs('prompts.*') ? 'material-symbols-filled' : '' }}">terminal</span>
                             <span class="text-sm font-semibold uppercase tracking-widest">Prompts</span>
                         </a>
 
-                        <a href="{{ route('analysis.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('analysis.*') ? 'bg-slate-100 text-[#0058be] border-r-4 border-[#0058be] font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <a href="{{ route('analysis.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('analysis.*') ? 'bg-amber-500 text-white font-semibold' : 'text-white hover:bg-amber-500 hover:text-white' }}">
                             <span class="material-symbols-outlined {{ request()->routeIs('analysis.*') ? 'material-symbols-filled' : '' }}">description</span>
                             <span class="text-sm font-semibold uppercase tracking-widest">Analyzer</span>
                         </a>
 
-                        <a href="{{ route('settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('settings.*') ? 'bg-slate-100 text-[#0058be] border-r-4 border-[#0058be] font-semibold' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900' }}">
+                        <a href="{{ route('settings.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ease-in-out {{ request()->routeIs('settings.*') ? 'bg-amber-500 text-white font-semibold' : 'text-white hover:bg-amber-500 hover:text-white' }}">
                             <span class="material-symbols-outlined {{ request()->routeIs('settings.*') ? 'material-symbols-filled' : '' }}">settings</span>
                             <span class="text-sm font-semibold uppercase tracking-widest">Settings</span>
                         </a>
@@ -80,11 +80,11 @@
 
                     <div class="mt-auto p-4 border-t border-slate-100">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full bg-[#131b2e] flex items-center justify-center text-white font-bold text-sm">
+                            <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold text-sm">
                                 {{ mb_strtoupper(substr(Auth::user()->name, 0, 2)) }}
                             </div>
                             <div class="flex-1 min-w-0">
-                                <p class="text-xs font-bold text-slate-900 truncate">{{ Auth::user()->name }}</p>
+                                <p class="text-xs font-bold text-white truncate">{{ Auth::user()->name }}</p>
                                 <p class="text-[10px] text-slate-500 uppercase tracking-tighter truncate">System Administrator</p>
                             </div>
                             <form method="POST" action="{{ route('logout') }}" class="inline">
@@ -104,21 +104,21 @@
                 <div class="flex items-center flex-1 max-w-xl">
                     <div class="relative w-full group">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                        <input class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all" placeholder="Search..." type="text" id="globalSearch">
+                        <input class="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none transition-all" placeholder="Search..." type="text" id="globalSearch">
                     </div>
                 </div>
                 <div class="flex items-center gap-6">
                     <div class="flex items-center gap-4 border-r border-slate-200 pr-6">
                         <button class="text-slate-500 hover:text-slate-900 transition-colors relative">
                             <span class="material-symbols-outlined">notifications</span>
-                            <span class="absolute top-0 right-0 w-2 h-2 bg-red-500 rounded-full border-2 border-white"></span>
+                            <span class="absolute top-0 right-0 w-2 h-2 bg-amber-500 rounded-full border-2 border-white"></span>
                         </button>
                         <button class="text-slate-500 hover:text-slate-900 transition-colors">
                             <span class="material-symbols-outlined">help_outline</span>
                         </button>
                     </div>
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-[#131b2e] flex items-center justify-center text-white font-bold text-sm">
+                        <div class="w-10 h-10 rounded-full bg-amber-500 flex items-center justify-center text-white font-bold text-sm">
                             {{ mb_strtoupper(substr(Auth::user()->name, 0, 2)) }}
                         </div>
                     </a>
